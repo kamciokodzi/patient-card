@@ -1,18 +1,22 @@
 <template>
-  <div>
-    <div class="panel panel-success">
-      <div class="panel-heading">
-        <h3 class="panel-title"> Patient Name & Surname </h3>
-      </div>
-      <div class="panel-body">
-        <div class="pull-left">
-          Jakies dane here
+  <div class="container">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <div class="navbar-brand"> Patient Profile </div>
         </div>
-        <div class="pull-right">
-          Wiecej danych here
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"> <a href=""> Profile</a>  </li>
+            <li> <a href=""> Observations</a>  </li>
+            <li> <a href=""> Medication Requests</a>  </li>
+            <li> <a href="">  Medication </a> </li>
+          </ul>
+
         </div>
       </div>
-    </div>
+
+    </nav>
   </div>
 </template>
 
@@ -23,3 +27,9 @@
     }
   }
 </script>
+
+<style>
+.nab-bar{
+  display: inline-block;
+}
+</style>

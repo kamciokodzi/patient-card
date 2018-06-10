@@ -1,6 +1,8 @@
 <template>
   <div class="row">
     <app-header></app-header>
+    <app-home></app-home>
+    <router-view></router-view>
     <!-- <router-view></router-view>
     <button @click="fetchData"> Fetch Data </button>
     <button @click="showData"> Show Data </button>
@@ -11,17 +13,21 @@
 
 <script>
 import Header from './components/Header.vue'
+import Home from './components/Home.vue'
+
 import axios from 'axios'
 
 export default {
   data() {
     return {
-      users: []
+      users: [],
+      isQuerySuccessful: false
     }
   },
   name: 'app',
   components: {
-    appHeader: Header
+    appHeader: Header,
+    appHome: Home
   },
   methods: {
     fetchData() {
@@ -53,7 +59,7 @@ body{
 }
 
 html{
-  background-color: white;
+  background-color: rgb(190, 190, 190);
   color: #555;
   font-family: 'Lato', Arial, Helvetica, sans-serif;
   font-size: 20px;
