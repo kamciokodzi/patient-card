@@ -13,8 +13,8 @@
       <h1>Goodby old paper file. <br> Welcome to online approach.</h1> 
       <div class="main-input-wrap fl-wrap"> 
         <div class="main-search-input-item">
-          <input type="text" placeholder="Type a Patient name here" value="">
-          <a href="" class="main-search-button btn btn-primary">Search for Patient</a>
+          <input type="text" placeholder="Type a Patient name here" v-model="name">
+          <button class="main-search-button btn btn-primary" @click="searchForPatient">Search for Patient</button>
         </div>
       </div>
     </div>
@@ -23,6 +23,45 @@
 
 
 <script>
+  import axios from 'axios'
+
+  export default {
+    data (){
+      return{
+        name: ''
+      }
+    },
+    methods: {
+      searchForPatient(){
+        this.$router.push('/');
+        this.$store.state.userList = [];
+        var index;
+        var currentPatient;
+        axios.get('http://localhost:8080/baseDstu3/Patient?name=' + this.name)
+        .then(res => {
+          console.log(res.data.entry);
+          for(index=0; index < res.data.entry.length; ++index){
+            currentPatient = res.data.entry[index].resource;
+            const myUser = {
+              id: currentPatient.id,
+              birthDate: currentPatient.birthDate,
+              city: currentPatient.address[0].city,
+              country: currentPatient.address[0].country,
+              postalCode: currentPatient.address[0].postalCode,
+              state: currentPatient.address[0].state,
+              gender: currentPatient.gender,
+              maritalStatus: currentPatient.maritalStatus.text,
+              family: currentPatient.name[0].family,
+              name: currentPatient.name[0].given[0],
+              niu: currentPatient.identifier[1].value
+            };
+            this.$store.state.userList.push(myUser)
+          }
+          this.$store.state.isQuerySuccessfull = true;
+        })
+      }
+    }
+  }
 </script>
 
 
@@ -115,6 +154,7 @@ h1 {
 }
 
 .main-search-button {
+  outline: none;
   position: absolute;
   padding: 13px;
   right: 0px;

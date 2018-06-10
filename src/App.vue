@@ -1,56 +1,56 @@
 <template>
   <div class="row">
     <app-header></app-header>
-    <app-home></app-home>
-    <router-view></router-view>
-    <!-- <router-view></router-view>
-    <button @click="fetchData"> Fetch Data </button>
-    <button @click="showData"> Show Data </button>
-    <h3 v-for="u in users" :key="u.id">{{u.name}}</h3> -->
-
+    <section class="user-list" v-if="isQuerySuccessfull"> 
+      <h2 >Result of query</h2>
+        <div class="container">
+          <div class="row">
+            <app-home v-for="(u,index) in users" v-bind:key="u.id" v-bind:index="index"></app-home>
+          </div>
+        </div>
+    </section>
+      <app-user v-if="isQuerySuccessfull"></app-user>
   </div>
 </template>
 
 <script>
 import Header from './components/Header.vue'
 import Home from './components/Home.vue'
+import User from './components/User.vue'
 
 import axios from 'axios'
 
 export default {
   data() {
     return {
-      users: [],
-      isQuerySuccessful: false
+      isPatientSelected: false
+    }
+  },
+  computed: {
+    isQuerySuccessfull() {
+      return this.$store.state.isQuerySuccessfull;
+    },
+    userSelected() {
+      return this.$store.state.userSelected;
+    },
+    users() {
+      return this.$store.state.userList;
     }
   },
   name: 'app',
   components: {
     appHeader: Header,
-    appHome: Home
-  },
-  methods: {
-    fetchData() {
-      var index;
-      axios.get('http://localhost:8080/baseDstu3/Patient?name=Andre')
-        .then(res => {
-          for(index=0; index < res.data.entry.length; ++index){
-            console.log(res.data.entry[index].resource);
-            const myUser = {
-              name: res.data.entry[index].resource.birthDate
-            };
-            this.users.push(myUser)
-          }
-        })
-    },
-    showData() {
-      console.log(this.users);
-    }
+    appHome: Home,
+    appUser: User
   }
 }
 </script>
 
 <style>
+
+.user-list{
+  display: inline-block;
+}
 
 body{
   padding: 0;
@@ -69,6 +69,25 @@ html{
 
 .row{
   margin: 0 auto;
+}
+
+
+h2 {
+  text-transform: uppercase;
+  font-size: 260%;
+  letter-spacing: 1px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+h2:after {
+  display: block;
+  height: 2px;
+  background-color: rgb(52, 139, 221);
+  content: "";
+  width: 100px;
+  margin: 0 auto;
+  margin-top: 20px;
 }
 
 </style>

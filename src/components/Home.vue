@@ -1,52 +1,40 @@
 <template>
-  <section class="user-list"> 
-    <div class="container">
-      <div class="row">
-        <h2>Result of query</h2>
-        <a href="">
-          <div class="col-md-3 strip_list wow fadeIn animated">
-            <small>Insurance No. 82313242</small>
-            <h3>Mark Buffalo</h3>
-            <p>US Kansas 213-322</p>
-          </div>
-        </a>
-
-        <div class="col-md-3 strip_list wow fadeIn animated">
-          <small>Female 26</small>
-          <h3>Amanda Bruno</h3>
-          <p>US Florida 231-222</p>
-        </div>
-
-        <div class="col-md-3 strip_list wow fadeIn animated">
-          <small>Female 26</small>
-          <h3>Amanda Bruno</h3>
-          <p>US Florida 231-222</p>
-        </div>
-            <div class="col-md-3 strip_list wow fadeIn animated">
-          <small>Female 26</small>
-          <h3>Amanda Bruno</h3>
-          <p>US Florida 231-222</p>
-        </div>
-            <div class="col-md-3 strip_list wow fadeIn animated">
-          <small>Female 26</small>
-          <h3>Amanda Bruno</h3>
-          <p>US Florida 231-222</p>
-        </div>
-      </div>
+  <router-link tag="a" :to="'/user/' + this.id +'/detail'">
+    <div class="col-lg-3 strip_list wow fadeIn animated">
+      <small>Insurance No. {{insuranceNo}}</small>
+      <h3>{{name}} {{surname}}</h3>
+      <p>{{country}} {{city}} {{state}} {{postalCode}}</p>
     </div>
-  </section>
-
+  </router-link>
   
 </template>
 
 
-<style scoped>
+<script>
+  export default {
+    props: ['index'],
+    data() {
+      return{
+        insuranceNo: this.$store.state.userList[this.index].niu,
+        name: this.$store.state.userList[this.index].name,
+        surname: this.$store.state.userList[this.index].family,
+        city: this.$store.state.userList[this.index].city,
+        country: this.$store.state.userList[this.index].country,
+        state: this.$store.state.userList[this.index].state,
+        postalCode: this.$store.state.userList[this.index].postalCode,
+        id: this.$store.state.userList[this.index].id
+      }
+    }
+  }
+</script>
 
-section{
+<style >
+section {
   padding: 40px 0;
 }
 
-.container{
+.container {
+  width: 1600px;
 }
 
 .strip_list {
@@ -90,21 +78,4 @@ section{
   margin-bottom: 15px;
 }
 
-h2{
-  text-transform: uppercase;
-  font-size: 260%;
-  letter-spacing: 1px;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-h2:after{
-  display: block;
-  height: 2px;
-  background-color: rgb(52, 139, 221);
-  content: "";
-  width: 100px;
-  margin: 0 auto;
-  margin-top: 20px;
-}
 </style>

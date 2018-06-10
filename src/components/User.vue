@@ -7,23 +7,25 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"> <a href=""> Profile</a>  </li>
-            <li> <a href=""> Observations</a>  </li>
-            <li> <a href=""> Medication Requests</a>  </li>
-            <li> <a href="">  Medication </a> </li>
+            <router-link tag="li" :to="'/user/' + this.$route.params.id + '/detail'" class="active"> <a href=""> Profile</a></router-link>
+            <router-link tag="li" :to="'/user/' + this.$route.params.id + '/observations'" > <a href=""> Observations</a></router-link>
+            <router-link tag="li" :to="'/user/' + this.$route.params.id + '/requests'" > <a href="">  Medication Requests</a></router-link>
+            <router-link tag="li" :to="'/user/' + this.$route.params.id + '/medications'" > <a href=""> Medication</a></router-link>
           </ul>
-
         </div>
       </div>
-
     </nav>
+    <router-view v-if="this.$route.params.id"></router-view>
   </div>
+  
 </template>
 
 <script>
   export default {
     data (){
-      
+      return{
+
+      }
     }
   }
 </script>

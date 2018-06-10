@@ -1,9 +1,11 @@
 import Home from './components/Home.vue'
-import Users from './components/Users';
 import User from './components/User'
+import UserDetails from './components/UserDetails.vue'
+import UserObservations from './components/UserObservations.vue'
 
 export const routes = [
   {path: '/', component: Home},
-  {path: '/patient', component: Users},
-  {path: '/user', component: User}
+  {path: '/user', component: User},
+  {path: '/user/:id/detail', component: UserDetails},
+  {path: '/user/:id/observations', component: UserObservations}
 ];
