@@ -1,8 +1,9 @@
 <template>
   <div class="col-lg-5 strip_list wow fadeIn animated">
-    <small> Date: {{date}} </small>
-    <small> Code: {{code}} </small>
+    <small>{{code}} <br> Date: {{date}}   </small>
     <h3> {{text}} </h3>
+    <br>
+    <hr>
     <p> Status: {{status}} </p>
     <p> Age {{age}} </p>
     <p> {{ weight}} kg</p>
@@ -29,38 +30,22 @@
   }
 </script>
 
-<style>
+<style scoped>
 .strip_list {
-  display: inline-block;
-  margin: 20px 20px 20px 20px;
-  margin-bottom: 25px;
   background-color: #fff;
-  padding: 20px 15px 15px 30px;
   border-radius: 5px;
   position: relative;
-  -moz-box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.05);
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
 }
 
-.fadeIn {
-  -webkit-animation-name: fadeIn;
-  animation-name: fadeIn;
-}
-
-.animated {
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-}
-
 .strip_list small {
+  float: right;
   color: #999;
-  display: block;
   font-weight: 600;
 }
 
 .strip_list h3 {
+  float: left;
   font-size: 22px;
   font-size: 1.375rem;
   margin-top: 0;

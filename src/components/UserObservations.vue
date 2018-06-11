@@ -1,6 +1,10 @@
 <template>
-  <div class="row">
-    <app-observation v-for="(o,index) in observations" v-bind:key="o.id" v-bind:index="index"></app-observation>
+  <div class="container">
+    <h3>Search by date: </h3> 
+    <input type="text" class="form-control" v-model="dateInput">
+    <div class="row">
+      <app-observation v-for="(o,index) in observations" v-bind:key="o.id" v-bind:index="index"></app-observation>
+   </div>
   </div>
 </template>
 
@@ -10,6 +14,8 @@
   export default {
     data () {
       return {
+        dateInput: 0,
+        sortedObservations: []
       }
     },
     components: {
@@ -17,7 +23,13 @@
     },
     computed: {
       observations(){
-        return this.$store.state.observationList;
+        this.sortedObservations=[];
+        this.$store.state.observationList.map(x => {
+          if (new Date(x.date) > new Date(this.dateInput)) 
+            this.sortedObservations.push(x);
+        });
+
+        return this.sortedObservations;
       }
     },
     created(){
@@ -59,3 +71,17 @@
     }
   }
 </script>
+
+
+<style>
+.form-control{
+  width: 400px;
+  display: inline-block;
+  margin: 10px 10px 10px 10px;
+}
+
+h3{
+  display: inline-block;
+  margin: 10px 10px 10px 10px;
+}
+</style>
