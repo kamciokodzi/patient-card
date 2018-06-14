@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h3>Search by date: </h3> 
+    <h3>Search by date: </h3>
     <input type="text" class="form-control" v-model="dateInput">
     <div class="row">
       <app-observation v-for="(o,index) in observations" v-bind:key="o.id" v-bind:index="index"></app-observation>
@@ -24,11 +24,13 @@
     computed: {
       observations(){
         this.sortedObservations=[];
+        this.$store.state.observationList.sort( (x,y) => {
+          return new Date(x.date) - new Date(y.date);
+        });
         this.$store.state.observationList.map(x => {
-          if (new Date(x.date) > new Date(this.dateInput)) 
+          if (x.date > this.dateInput)
             this.sortedObservations.push(x);
         });
-
         return this.sortedObservations;
       }
     },
@@ -42,17 +44,17 @@
         .then(res => {
           console.log(res);
           for(index=0; index < res.data.entry.length; ++index){
-            var weight = 'No Data';
-            var age = 'No Data';
-            var pressure = 'No Data';
+            var value = 'No Data';
+            var unit = "N/A";
             currentObservation = res.data.entry[index].resource;
+            console.log(currentObservation);
             if("valueQuantity" in currentObservation){
-              if(currentObservation.valueQuantity.code == "kg")
-                weight = currentObservation.valueQuantity.value;
-              else
-                age = currentObservation.valueQuantity.value;
+              value = currentObservation.valueQuantity.value;
+              unit = currentObservation.valueQuantity.unit;
             }else if("component" in currentObservation){
-                pressure = currentObservation.component[0].valueQuantity.value;
+                value = currentObservation.component[0].valueQuantity.value
+                + "/" + currentObservation.component[1].valueQuantity.value;
+                unit = currentObservation.component[0].valueQuantity.unit;
             }
             myObservation = {
               id: currentObservation.id,
@@ -61,9 +63,8 @@
               date: currentObservation.effectiveDateTime,
               issued: currentObservation.issued,
               status: currentObservation.status,
-              pressure: pressure,
-              weight: weight,
-              age: age
+              value: value,
+              unit: unit
             }
            this.$store.state.observationList.push(myObservation);
           }
