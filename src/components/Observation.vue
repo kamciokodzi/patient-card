@@ -3,9 +3,8 @@
     <small>{{code}} <br> Date: {{date}}   </small>
     <h3> {{text}} </h3>
     <p> Status: {{status}} </p>
-    <p> Age {{age}} </p>
-    <p> {{ weight}} kg</p>
-    <p> Pressure {{pressure}} mmHg</p>
+    <p> Value: {{value}} </p>
+    <p> Unit: {{unit}} </p>
   </div>
 </template>
 
@@ -20,9 +19,8 @@
         date: this.$store.state.observationList[this.index].date,
         issued: this.$store.state.observationList[this.index].issued,
         status: this.$store.state.observationList[this.index].status,
-        age: this.$store.state.observationList[this.index].age,
-        weight: this.$store.state.observationList[this.index].weight,
-        pressure: this.$store.state.observationList[this.index].pressure
+        value: this.$store.state.observationList[this.index].value,
+        unit: this.$store.state.observationList[this.index].unit
       }
     }
   }
