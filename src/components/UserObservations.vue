@@ -14,7 +14,7 @@
   export default {
     data () {
       return {
-        dateInput: 0,
+        dateInput: '',
         sortedObservations: []
       }
     },
